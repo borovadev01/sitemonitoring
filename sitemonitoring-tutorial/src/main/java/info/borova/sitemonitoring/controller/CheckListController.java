@@ -36,6 +36,7 @@ public class CheckListController implements Serializable {
 
 	public void save() {
 		checkService.save(check);
+		checks = checkService.findAll();
 		check = new Check();
 	}
 }
