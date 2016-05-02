@@ -4,7 +4,15 @@
 <h:head>
 </h:head>
 <h:body>
-managed bean say:
-#{helloController.showHello()}
+	<p:dataTable var="check" value="#{checkListController.checks}">
+		<p:column headerText="name">
+			<h:outputText value="#{check.name}" />
+		</p:column>
+
+		<p:column headerText="url">
+			<h:outputText value="#{check.url}" />
+		</p:column>
+
+	</p:dataTable>
 </h:body>
 </html>
