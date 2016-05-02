@@ -16,4 +16,12 @@ public class CheckService {
 	public List<Check> findAll() {
 		return checkRepository.findAll();
 	}
+
+	public void save(Check check) {
+		checkRepository.save(check);
+	}
+
+	public void remove(Check check) {
+		checkRepository.delete(check);
+	}
 }

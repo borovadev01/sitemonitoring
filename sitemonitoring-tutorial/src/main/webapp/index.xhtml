@@ -4,15 +4,72 @@
 <h:head>
 </h:head>
 <h:body>
-	<p:dataTable var="check" value="#{checkListController.checks}">
+	<!-- <p:messages id="messages" /> -->
+	<p:growl id="messages" />
+
+	<p:dataTable var="check" value="#{checkListController.checks}"
+		id="checkTable">
 		<p:column headerText="name">
 			<h:outputText value="#{check.name}" />
 		</p:column>
-
 		<p:column headerText="url">
 			<h:outputText value="#{check.url}" />
 		</p:column>
+		<p:column headerText="operations">
+			<h:form>
+				<p:commandButton value="edit"
+					action="#{checkListController.setCheck(check)}" update=":checkForm"
+					onclick="PF('checkDialog').show();" resetValues="true" />
 
+				<p:commandButton value="remove"
+					action="#{checkListController.remove(check)}"
+					update=":checkTable, :messages">
+					<p:confirm header="Confirmation" message="Are you sure?"
+						icon="ui-icon-alert" />
+				</p:commandButton>
+			</h:form>
+		</p:column>
 	</p:dataTable>
+	<br />
+	<h:form>
+		<p:commandButton value="add check"
+			action="#{checkListController.clear()}" update=":checkForm"
+			onclick="PF('checkDialog').show()" resetValues="true" />
+	</h:form>
+
+	<p:dialog widgetVar="checkDialog" closeOnEscape="true" model="true"
+		header="check">
+		<h:form id="checkForm">
+			<p:messages />
+			<p:focus />
+			<p:panelGrid columns="2">
+		name:
+		<p:inputText value="#{checkListController.check.name}" />
+		url:
+		<p:inputText value="#{checkListController.check.url}" />
+			</p:panelGrid>
+			<p:commandButton value="save" action="#{checkListController.save()}"
+				update="checkForm, :checkTable"
+				oncomplete="handleDialogSubmit(args, 'checkDialog')" />
+		</h:form>
+	</p:dialog>
+
+	<h:form>
+		<p:confirmDialog global="true" closeOnEscape="true">
+			<p:commandButton value="Yes" type="button"
+				styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			<p:commandButton value="No" type="button"
+				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		</p:confirmDialog>
+	</h:form>
+
+
+	<script type="text/javascript">
+function handleDialogSubmit(args, dialogName){
+	if(!args.validationFailed){
+		PF(dialogName).hide();
+	}
+}
+	</script>
 </h:body>
 </html>
