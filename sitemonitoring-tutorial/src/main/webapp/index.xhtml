@@ -5,7 +5,7 @@
 </h:head>
 <h:body>
 	<!-- <p:messages id="messages" /> -->
-	<p:growl id="messages"/>
+	<p:growl id="messages" />
 
 	<p:dataTable var="check" value="#{checkListController.checks}"
 		id="checkTable">
@@ -19,6 +19,7 @@
 	</p:dataTable>
 
 	<h:form id="checkForm">
+		<p:focus />
 		<p:panelGrid columns="2">
 		name:
 		<p:inputText value="#{checkListController.check.name}" />
