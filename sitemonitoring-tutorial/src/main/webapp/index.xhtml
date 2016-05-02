@@ -4,7 +4,11 @@
 <h:head>
 </h:head>
 <h:body>
-	<p:dataTable var="check" value="#{checkListController.checks}" id="checkTable">
+	<!-- <p:messages id="messages" /> -->
+	<p:growl id="messages"/>
+
+	<p:dataTable var="check" value="#{checkListController.checks}"
+		id="checkTable">
 		<p:column headerText="name">
 			<h:outputText value="#{check.name}" />
 		</p:column>
@@ -19,9 +23,10 @@
 		name:
 		<p:inputText value="#{checkListController.check.name}" />
 		url:
-		<p:inputText value="#{checkListController.check.url}"/>
+		<p:inputText value="#{checkListController.check.url}" />
 		</p:panelGrid>
-		<p:commandButton value="save" action="#{checkListController.save()}" update="checkForm, :checkTable"/>
+		<p:commandButton value="save" action="#{checkListController.save()}"
+			update="checkForm, :checkTable, :messages" />
 	</h:form>
 </h:body>
 </html>
